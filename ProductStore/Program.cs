@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Remoting.Lifetime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,35 +13,14 @@ namespace ProductStore
         static void Main(string[] args)
         {
             ShowStartMsg();
-            string personName = NameValidation();
-            StartProcecMsg(personName);
-            Product[] products = new Product[ProductCount()];
+            string PersonName = NameValidation();
+            StartProcecMsg(PersonName);
+            Product[] products = new Product[SetProductCount()];
             SetProducts(products);
             ShowProductList(products);
         }
-        static void ShowStartMsg()
-        {
-            Console.WriteLine("hey! lats add a few product to your store...\n before it, what is you name?");
-        }
-        static string NameValidation()
-        {
-            Console.WriteLine("the name please");
-            string name;
-            while (true)
-            {
-                name = Console.ReadLine();
-                if (name == null || name.Length <= 0)
-                    Console.WriteLine("name not valid");              
-                else
-                    break;
-            }
-            return name;
-        }
-        static void StartProcecMsg(string personName)
-        {
-            Console.WriteLine($"hey {personName}! how much product you want to fill?");
-        }
-        static int ProductCount()
+        // Fulfill function
+        static int SetProductCount()
         {
             int productCount;
             string productCountInput;
@@ -60,40 +41,72 @@ namespace ProductStore
                 products[i] = new Product(NameValidation(), ProductPriceValidation(), ProductAddDaysValidation());
             }
         }
+        // Validation function
+        static string NameValidation()
+        {
+            string name;
+
+            ShowFieldDescription("the name");
+            while (true)
+            {
+                name = Console.ReadLine();
+                if (name == null || name.Length <= 0)
+                    ShowErorrValidarionMsg("name not valid");
+                else
+                    break;
+            }
+            return name;
+        }
         static public double ProductPriceValidation()
         {
-            Console.WriteLine("the price please");
-            double productPrice;
-            string productPriceInput;
+            double productPrice; string productPriceInput;
+
+            ShowFieldDescription("the price");
             while (true)
             {
                 productPriceInput = Console.ReadLine();
                 if (double.TryParse(productPriceInput, out productPrice) && productPrice > 0)
                     return productPrice;
                 else
-                    Console.WriteLine("only numbers");
+                    ShowErorrValidarionMsg("only numbers");
             }
         }
         static public int ProductAddDaysValidation()
         {
-            Console.WriteLine("days experetion from now please");
-            int productPrice;
-            string productPriceInput;
+            int productPrice; string productPriceInput;
+            
+            ShowFieldDescription("the days experetion from now");
             while (true)
             {
                 productPriceInput = Console.ReadLine();
                 if (int.TryParse(productPriceInput, out productPrice) && productPrice > 0)
                     return productPrice;
                 else
-                    Console.WriteLine("only number");
+                    ShowErorrValidarionMsg("only numbers");
             }
         }
         static public void ShowProductList(Product[] products)
         {
             Console.Clear();
             for (int i = 0; i < products.Length; i++)           
-                Console.WriteLine($"{products[i]}\n");         
+                Console.WriteLine($"{products[i]}");         
         }
-    
+        // Text function
+        static void ShowStartMsg()
+        {
+            Console.WriteLine("hey! lats add a few product to your store...\n before it, what is you name?");
+        }
+        static void StartProcecMsg(string personName)
+        {
+            Console.WriteLine($"hey {personName}! how much product you want to fill?");
+        }
+        static void ShowFieldDescription(string variable) 
+        {
+            Console.WriteLine($"Enter {variable} plaese");
+        }
+        static void ShowErorrValidarionMsg(string variable)
+        {
+            Console.WriteLine(variable);
+        }
     }
 }
