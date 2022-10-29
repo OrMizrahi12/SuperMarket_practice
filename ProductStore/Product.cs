@@ -23,7 +23,7 @@ namespace ProductStore
 
         public override string ToString()
         {
-            return $"Name: {_name}\n Price: {_price}\n Expretion date: {_date.ToString("dd/MM/yyyy")} \n ----------------";
+            return $" Name: {_name}\n Price: {_price}\n Expretion date: {_date.ToString("dd/MM/yyyy")} \n ----------------";
         } 
 
        

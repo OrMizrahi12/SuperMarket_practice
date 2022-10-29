@@ -18,6 +18,7 @@ namespace ProductStore
             Product[] products = new Product[SetProductCount()];
             SetProducts(products);
             ShowProductList(products);
+            ChooseProduct(products, PersonName);
         }
         // Fulfill function
         static int SetProductCount()
@@ -26,14 +27,14 @@ namespace ProductStore
             string productCountInput;
             while (true)
             {
-               productCountInput = Console.ReadLine();
-                if (int.TryParse(productCountInput, out productCount) && productCount > 0) 
+                productCountInput = Console.ReadLine();
+                if (int.TryParse(productCountInput, out productCount) && productCount > 0)
                     return productCount;
-                else 
-                    Console.WriteLine("only number"); 
+                else
+                    Console.WriteLine("only number");
             }
         }
-        static void SetProducts(Product []products)
+        static void SetProducts(Product[] products)
         {
             for (int i = 0; i < products.Length; i++)
             {
@@ -74,7 +75,7 @@ namespace ProductStore
         static public int ProductAddDaysValidation()
         {
             int productPrice; string productPriceInput;
-            
+
             ShowFieldDescription("the days experetion from now");
             while (true)
             {
@@ -85,16 +86,41 @@ namespace ProductStore
                     ShowErorrValidarionMsg("only numbers");
             }
         }
+        static int ChoosingProductValidation(int productsLengthArr)
+        {
+            int productNumber; string productNumberInput;
+
+            ShowFieldDescription("the days experetion from now");
+            while (true)
+            {
+                productNumberInput = Console.ReadLine();
+                if (int.TryParse(productNumberInput, out productNumber) && (productNumber > productsLengthArr || productNumber < 1))
+                    return productNumber;
+                else
+                    ShowErorrValidarionMsg($"only numbers betweem 1 - {productsLengthArr}");
+            }
+        }
+        // UI function 
         static public void ShowProductList(Product[] products)
         {
             Console.Clear();
-            for (int i = 0; i < products.Length; i++)           
-                Console.WriteLine($"{products[i]}");         
+            for (int i = 0; i < products.Length; i++)
+                Console.WriteLine($"#{i + 1}{products[i]}");
+        }
+        static void ChooseProduct(Product[] products, string costumerName)
+        {
+            Console.WriteLine("place select product number:");
+            int productNumberResult = ChoosingProductValidation(products.Length);
+            PrintReception(products, costumerName, productNumberResult);
+        }
+        static void PrintReception(Product[] products, string costumerName, int productNumberResult)
+        {
+            Console.WriteLine($"{products[productNumberResult]}");
         }
         // Text function
         static void ShowStartMsg()
         {
-            Console.WriteLine("hey! lats add a few product to your store...\n before it, what is you name?");
+            Console.WriteLine(" hey! lats add a few product to your store...\n before it, what is you name?");
         }
         static void StartProcecMsg(string personName)
         {
@@ -102,7 +128,7 @@ namespace ProductStore
         }
         static void ShowFieldDescription(string variable) 
         {
-            Console.WriteLine($"Enter {variable} plaese");
+            Console.WriteLine($" Enter {variable} plaese");
         }
         static void ShowErorrValidarionMsg(string variable)
         {
