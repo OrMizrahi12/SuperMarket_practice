@@ -90,11 +90,10 @@ namespace ProductStore
         {
             int productNumber; string productNumberInput;
 
-            ShowFieldDescription("the days experetion from now");
             while (true)
             {
                 productNumberInput = Console.ReadLine();
-                if (int.TryParse(productNumberInput, out productNumber) && (productNumber > productsLengthArr || productNumber < 1))
+                if (int.TryParse(productNumberInput, out productNumber) && (productNumber <= productsLengthArr && productNumber >= 1))
                     return productNumber;
                 else
                     ShowErorrValidarionMsg($"only numbers betweem 1 - {productsLengthArr}");
@@ -115,7 +114,8 @@ namespace ProductStore
         }
         static void PrintReception(Product[] products, string costumerName, int productNumberResult)
         {
-            Console.WriteLine($"{products[productNumberResult]}");
+            Console.Clear();
+            Console.WriteLine($"*** Reception *** \n Costumer name: {costumerName} \n {products[productNumberResult-1]}");
         }
         // Text function
         static void ShowStartMsg()

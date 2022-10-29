@@ -15,7 +15,6 @@ namespace ProductStore
         public Product(string name, double price, int days)
         {
             DateTime day = DateTime.Now;
-          
             _name = name;
             _price = price;
             _date = day.AddDays(days);
@@ -23,12 +22,7 @@ namespace ProductStore
 
         public override string ToString()
         {
-            return $" Name: {_name}\n Price: {_price}\n Expretion date: {_date.ToString("dd/MM/yyyy")} \n ----------------";
+            return $"Product name: {_name}\n Price: {_price}\n Expretion date: {_date.ToString("dd/MM/yyyy")} \n ----------------";
         } 
-
-       
-
-
-
     }
 }
