@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,8 @@ namespace ProductStore
 
         public override string ToString()
         {
-            return $"Product name: {_name}\n Price: {_price}\n Expretion date: {_date.ToString("dd/MM/yyyy")} \n ----------------";
+            string receiving = $" Product name: {_name}\n Price: {string.Format("{0:C}", _price)}\n Expretion date: {_date} \n ----------------";
+            return receiving;
         } 
     }
 }
